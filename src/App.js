@@ -17,8 +17,14 @@ class App extends Component {
       .then((res) => res.json())
       .then((users) => this.setState({ monsters: users }));
   }
+
+  handleChange = (e) => {
+    this.setState({ search: e.target.value });
+  };
+
   render() {
     const { monsters, search } = this.state;
+
     const filteredMonsters = monsters.filter((monster) =>
       monster.name.toLowerCase().includes(search.toLowerCase())
     );
@@ -28,7 +34,7 @@ class App extends Component {
         <h1>Monsters Rolodex</h1>
         <SearchBox
           placeholder='Search monsters'
-          handleChange={(e) => this.setState({ search: e.target.value })}
+          handleChange={this.handleChange}
         />
         <CardList monsters={filteredMonsters} />
       </div>
